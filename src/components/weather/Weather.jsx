@@ -3,6 +3,7 @@ import { Button } from "../ui/Button";
 import { Loader } from "../ui/Loader";
 import WeatherData from "./WeatherData";
 import styles from "./Weather.module.css";
+import { fetchWeatherDetails } from "../../services/apiWeatcher";
 
 function Weather() {
   const [location, setLocation] = useState("");
@@ -18,9 +19,7 @@ function Weather() {
     try {
       setIsLoading(true);
       // 1) Getting location (geocoding)
-      const geoRes = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
-      );
+      const geoRes = await fetchWeatherDetails(location);
       const geoData = await geoRes.json();
 
       if (!geoData.results) throw new Error("Location not found");

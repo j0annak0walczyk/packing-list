@@ -11,9 +11,12 @@ import { useAddItem } from "../../hooks/useAddItem";
 import useDeleteTrip from "../../hooks/useDeleteTrip";
 import styles from "./TripActionBar.module.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import toast from "react-hot-toast";
 
 function TripActionBar({ trip }) {
-  const { deleteTrip, isDeletingTrip } = useDeleteTrip();
+  const { deleteTrip, isDeletingTrip } = useDeleteTrip(() =>
+    alert("coś schrzaniłeś")
+  );
   const { addNewItem } = useAddItem();
   const { data: itemsList, refetch: refetchItemsList } = useItemsList();
   const { deleteItem } = useDeleteItem();
@@ -22,26 +25,18 @@ function TripActionBar({ trip }) {
   const [openEditTripForm, setOpenEditTripForm] = useState(false);
 
   async function handleDeleteTrip() {
-    async function deletingItems() {
-      try {
-        const deletePromises = itemsList
-          .filter((item) => item.trip === trip.id)
-          .map((item) => deleteItem(item.id));
+    const deletePromises = itemsList
+      .filter((item) => item.trip === trip.id)
+      .map((item) => deleteItem(item.id));
 
-        await Promise.all(deletePromises);
-      } catch (error) {
-        console.error("Error deleting items:", error);
-        throw error;
-      }
-    }
+    Promise.all(deletePromises)
+      .then(() => deleteTrip(trip.id))
+      .then(() => {
+        toast.success("Jupi usunąłęś to co trzeba i pokazeuje jeden toast");
+        refetchItemsList();
+      });
 
-    try {
-      await deletingItems();
-      await refetchItemsList();
-      deleteTrip(trip.id);
-    } catch (error) {
-      console.error("Error handling delete trip:", error);
-    }
+    console.log(123); // ważna zmiana
   }
 
   function handleAddListToOtherList() {

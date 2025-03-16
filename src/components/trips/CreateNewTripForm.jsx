@@ -18,12 +18,12 @@ export const CreateNewTripForm = ({
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
 
-  const clearForm = function () {
+  function clearForm() {
     setCountry("");
     setCity("");
     setDateFrom("");
     setDateTo("");
-  };
+  }
 
   const createNewTrip = function (e) {
     e.preventDefault();
@@ -31,9 +31,7 @@ export const CreateNewTripForm = ({
     const createDate = new Date();
 
     if (dateFrom > dateTo) {
-      if (dateFrom > dateTo) {
-        toast.error("End date cannot be greater than start date");
-      }
+      toast.error("End date cannot be greater than start date");
     }
 
     if (
@@ -56,7 +54,7 @@ export const CreateNewTripForm = ({
       clearForm();
       setIsOpenModalFromChild(false);
     } else if (!country || !city || !dateFrom || !dateTo) {
-      alert("Fill in all fields");
+      toast.error("Fill in all fields");
     }
   };
 

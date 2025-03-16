@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styles from "./Homepage.module.css";
 import { Button } from "./ui/Button";
 import { useState } from "react";

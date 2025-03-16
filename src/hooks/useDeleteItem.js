@@ -8,7 +8,7 @@ function useDeleteItem() {
   const { mutate: deleteItem, isLoading: isDeletingItem } = useMutation({
     mutationFn: deleteItemApi,
     onSuccess: () => {
-      toast.success("Item successfully deleted");
+      // toast.success("Item successfully deleted");
       queryClient.invalidateQueries({
         queryKey: ["items"],
       });

@@ -6,15 +6,16 @@ export const Button = ({
   onClickFunction,
   version,
   isDisabled,
-  style,
+  style, // do wywalenia na rzecz className
   active,
+  className,
 }) => {
   return (
     <button
       style={style}
       className={`${styles.reusableButton} ${styles[version]} ${
         styles[active && `active${version}`]
-      }`}
+      } ${className}`}
       onClick={onClickFunction}
       disabled={isDisabled}
     >

@@ -1,4 +1,3 @@
-// AppNavContainer.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./Homepage";
 import ChooseTrips from "./trips/ChooseTrips";
@@ -9,6 +8,7 @@ import Map from "./maps/Map";
 import AppLayout from "./AppLayout";
 
 function AppNavContainer() {
+  // przenzwić komponent
   return (
     <BrowserRouter>
       <Routes>
@@ -16,7 +16,6 @@ function AppNavContainer() {
         <Route path="/app" element={<AppLayout />}>
           <Route path="choose-trip" element={<ChooseTrips />} />
           <Route path="choose-trip/new-trip" element={<CreateNewTripForm />} />
-          <Route path="new-trip" element={<CreateNewTripForm />} />
           <Route path=":id" element={<TripPackingList />} />
           <Route path="weather" element={<Weather />} />
           <Route path="map" element={<Map />} />

@@ -1,40 +1,15 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import styles from "./App.module.css";
-import { Toaster } from "react-hot-toast";
+// eslint-disable-next-line no-unused-vars
+import styles from "./App.module.css"; // this line is very ....
 import AppNavContainer from "./components/AppNavContainer";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1,
-    },
-  },
-});
+import { ReactQueryProvider } from "./providers/ReactQueryProvider";
+import { ToastProvider } from "./providers/ToastProvider";
 
 export const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQueryProvider>
       <AppNavContainer />
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: {
-            duration: 2000,
-          },
-          error: {
-            duration: 2000,
-          },
-          style: {
-            fontSize: "16px",
-            maxWidth: "500px",
-            padding: "16px 24px",
-            color: "var(--color-grey-700)",
-          },
-        }}
-      />
-    </QueryClientProvider>
+      <ToastProvider />
+    </ReactQueryProvider>
   );
 };
 

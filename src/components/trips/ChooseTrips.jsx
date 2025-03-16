@@ -8,11 +8,11 @@ import ChooseTripsBar from "./ChooseTripsBar";
 import { calculateTripDuration } from "../../calculations/calculateTripDuration";
 import { Button } from "../ui/Button";
 
-function ChooseTrips({ isLoading }) {
+function ChooseTrips() {
   const { data: tripsList, isLoading: isLoadingTrips } = useTripsList();
   const [searchParams] = useSearchParams();
 
-  if (isLoading || isLoadingTrips) return <Loader />;
+  if (isLoadingTrips) return <Loader />;
 
   // FILTER
 
@@ -22,11 +22,13 @@ function ChooseTrips({ isLoading }) {
   let noTripInformation;
   if (filterValue === "all")
     (filteredTrips = tripsList), (noTripInformation = "There are no trips yet");
+
   if (filterValue === "daytrips")
     (filteredTrips = tripsList?.filter(
       (trip) => calculateTripDuration(trip.dateFrom, trip.dateTo).days === 1
     )),
       (noTripInformation = "There are no 1 day trips yet");
+
   if (filterValue === "2-7days")
     (filteredTrips = tripsList?.filter(
       (trip) =>
@@ -34,6 +36,7 @@ function ChooseTrips({ isLoading }) {
         calculateTripDuration(trip.dateFrom, trip.dateTo).days < 8
     )),
       (noTripInformation = "There are no 2-7 day trips yet");
+
   if (filterValue === "8-14days")
     (filteredTrips = tripsList?.filter(
       (trip) =>
@@ -41,6 +44,7 @@ function ChooseTrips({ isLoading }) {
         calculateTripDuration(trip.dateFrom, trip.dateTo).days < 15
     )),
       (noTripInformation = "There are no 8-14 trips yet");
+
   if (filterValue === "morethan14days")
     (filteredTrips = tripsList?.filter(
       (trip) => calculateTripDuration(trip.dateFrom, trip.dateTo).days >= 15
@@ -86,7 +90,7 @@ function ChooseTrips({ isLoading }) {
       {filteredTrips?.length < 1 ? (
         <div className={styles.noTripsInfo}>
           <div>{noTripInformation}</div>
-          <Link to="new-trip">
+          <Link to="/app/choose-trip/new-trip">
             <Button version={"nav"}>Create new trip</Button>
           </Link>
         </div>

@@ -7,7 +7,7 @@ import IMAGES from "../images/Images";
 function AppLayout() {
   return (
     <div className={styles.container}>
-      <div className={styles.menu}>
+      <header className={styles.menu}>
         <Link to="/" className={styles.logoContainer}>
           <img className={styles.logo} src={IMAGES.logo} alt="Logo" />
         </Link>
@@ -23,12 +23,12 @@ function AppLayout() {
             Log out
           </Button>
         </Link>
-      </div>
-      <div className={styles.contentContainer}>
+      </header>
+      <main className={styles.contentContainer}>
         <div className={styles.content}>
           <Outlet />
         </div>
-      </div>
+      </main>
     </div>
   );
 }

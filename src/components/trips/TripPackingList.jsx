@@ -91,16 +91,29 @@ export default function TripPackingList() {
     return 0;
   });
 
+  const { country, city, dateFrom, dateTo } = tripDetails[0];
+
+  const sortOptions = [
+    { value: "item-asc", label: "Item (A-Z)" },
+    { value: "item-desc", label: "Item (Z-A)" },
+  ];
+
+  const filterOptions = [
+    { value: "all", label: "All" },
+    { value: "true", label: "Checked" },
+    { value: "false", label: "Unchecked" },
+  ];
+
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
         <div className={styles.detailsNames}>
-          <span>Country: {tripDetails[0].country}</span>
-          <span>City: {tripDetails[0].city}</span>
+          <span>Country: {country}</span>
+          <span>City: {city}</span>
         </div>
         <div className={styles.detailsDates}>
-          <span>Date from: {tripDetails[0].dateFrom}</span>
-          <span>Date to: {tripDetails[0].dateTo}</span>
+          <span>Date from: {dateFrom}</span>
+          <span>Date to: {dateTo}</span>
         </div>
         <div className={styles.detailsDuration}>
           <span>
@@ -110,19 +123,10 @@ export default function TripPackingList() {
       </div>
       <div className={styles.listContainer}>
         <div className={styles.sortAndFilter}>
-          <Sort
-            options={[
-              { value: "item-asc", label: "Item (A-Z)" },
-              { value: "item-desc", label: "Item (Z-A)" },
-            ]}
-          />
+          <Sort options={sortOptions} />
           <Filter
             filterField="checked"
-            options={[
-              { value: "all", label: "All" },
-              { value: "true", label: "Checked" },
-              { value: "false", label: "Unchecked" },
-            ]}
+            options={filterOptions}
             refetch={refetchItemsList}
           />
           <div className={styles.addItem}>

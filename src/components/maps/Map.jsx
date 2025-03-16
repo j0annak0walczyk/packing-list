@@ -75,22 +75,22 @@ function Map() {
     }
   }, [userCoords, shareLocation, handleMapClick]);
 
+  function success(pos) {
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+    setUserCoords([latitude, longitude]);
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
   function getPosition() {
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
     };
-
-    function success(pos) {
-      const latitude = pos.coords.latitude;
-      const longitude = pos.coords.longitude;
-      setUserCoords([latitude, longitude]);
-    }
-
-    function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
